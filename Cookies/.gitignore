@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Downloaded Videos (Prevent pushing massive gigabyte files to Git)
+*.webm
+*.mp4
+*.mkv
+*.part
+*.ytdl
+
+# Personal/Sensitive Cookie Files (EXTREMELY IMPORTANT)
+# These contain active login sessions. DO NOT PUSH TO GITHUB.
+Untitled-*.txt
+Untitled-*.json
+cookies*.txt
+cookies*.json
+*.cookie
+*.cookies
+
+# Logs and system files
+*.log
+.DS_Store
+Thumbs.db

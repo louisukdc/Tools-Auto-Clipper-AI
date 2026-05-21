@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member-Only YouTube Downloader</title>
+    <!-- Modern Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Premium Stylesheet -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Background Animated Gradients -->
+    <div class="bg-gradient-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-wrapper">
+                <i class="fa-brands fa-youtube logo-icon"></i>
+                <h1 class="brand-title">YT Member <span>Downloader</span></h1>
+            </div>
+            <p class="brand-subtitle">Download video YouTube berlangganan member dengan aman, cepat, dan mudah secara real-time.</p>
+        </header>
+
+        <!-- Main Workspace Grid -->
+        <main class="workspace-grid">
+            
+            <!-- Left Panel: Configuration Form -->
+            <section class="glass-card config-panel">
+                <h2 class="card-title"><i class="fa-solid fa-sliders icon-accent"></i> Konfigurasi Download</h2>
+                
+                <form id="download-form" class="form-container">
+                    <!-- URL Input Group -->
+                    <div class="input-group">
+                        <label for="video-url">Link Video YouTube</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-link input-icon"></i>
+                            <input type="url" id="video-url" placeholder="https://www.youtube.com/live/..." required>
+                        </div>
+                        <span class="input-hint">Masukkan tautan video standar atau khusus member yang aktif.</span>
+                    </div>
+
+                    <!-- Cookies Selector Group -->
+                    <div class="input-group">
+                        <label for="cookie-select">Pilih File Cookies (.txt / .json)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-cookie-bite input-icon"></i>
+                            <select id="cookie-select" required>
+                                <option value="" disabled selected>Memuat cookies dari workspace...</option>
+                            </select>
+                            <button type="button" id="refresh-cookies" class="btn-icon-secondary" title="Scan ulang file cookies">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+                        <span class="input-hint">Mendeteksi otomatis file cookies yang ada di folder workspace.</span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons-wrapper">
+                        <button type="submit" id="start-btn" class="btn-primary">
+                            <i class="fa-solid fa-circle-down"></i> Mulai Download
+                        </button>
+                        <button type="button" id="cancel-btn" class="btn-danger hidden">
+                            <i class="fa-solid fa-circle-stop"></i> Batalkan
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Panel: Real-time Status Card -->
+            <section class="glass-card status-panel">
+                <div class="status-header">
+                    <h2 class="card-title"><i class="fa-solid fa-chart-line icon-accent"></i> Status Download</h2>
+                    <span id="status-badge" class="badge badge-idle">Idle</span>
+                </div>
+
+                <!-- Progress Visuals -->
+                <div class="progress-section">
+                    <div class="progress-details">
+                        <span class="percent-label" id="percent-label">0%</span>
+                        <span class="status-message" id="status-message">Siap mendownload video...</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Speedometer Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-title"><i class="fa-solid fa-gauge-high"></i> Kecepatan</span>
+                        <span class="stat-value" id="stat-speed">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title"><i class="fa-solid fa-hourglass-half"></i> Sisa Waktu</span>
+                        <span class="stat-value" id="stat-eta">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-title"><i class="fa-solid fa-file-video"></i> Ukuran File</span>
+                        <span class="stat-value" id="stat-size">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Panel: Scrollable Logging Console -->
+            <section class="glass-card console-panel">
+                <div class="console-header">
+                    <h2 class="card-title"><i class="fa-solid fa-terminal icon-accent"></i> Live Terminal Logs</h2>
+                    <button type="button" id="clear-logs" class="btn-secondary-sm">
+                        <i class="fa-solid fa-trash-can"></i> Bersihkan Log
+                    </button>
+                </div>
+                <div class="terminal-log-window" id="terminal-logs">
+                    <div class="log-line system-line">[SYSTEM] Server terhubung. Masukkan konfigurasi dan tekan 'Mulai Download'.</div>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- Git Safety Notice -->
+        <footer class="app-footer">
+            <p><i class="fa-solid fa-shield-halved text-success"></i> **Keamanan Git Terjamin:** Semua file cookies (`.txt`/`.json`) dan hasil download video secara otomatis diabaikan oleh `.gitignore` agar tidak terunggah ke GitHub publik Anda.</p>
+        </footer>
+    </div>
+
+    <!-- WebSockets Support -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Premium Client Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

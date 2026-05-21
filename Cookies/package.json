@@ -1,0 +1,23 @@
+{
+  "name": "youtube-member-downloader",
+  "version": "1.0.0",
+  "description": "A beautiful web app to download Member-Only YouTube videos in real-time.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "youtube",
+    "downloader",
+    "yt-dlp",
+    "member-only",
+    "cookies"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
